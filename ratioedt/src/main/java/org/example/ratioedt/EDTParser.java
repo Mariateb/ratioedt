@@ -73,12 +73,12 @@ public class EDTParser {
             }
 
             if(Objects.equals(lineInput[0], "N/A") && parsingDescription) {
-                description += lineInput[1];
+                description += lineInput[1].substring(1);
                 continue;
             }
 
             if(!Objects.equals(lineInput[0], "N/A") && parsingDescription) {
-                event.setDescription(description);
+                event.setDescription(description.replace("\\n", System.lineSeparator()).replace("\\,", ","));
                 parsingDescription = false;
                 continue;
             }
