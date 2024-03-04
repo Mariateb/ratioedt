@@ -1,0 +1,18 @@
+VBox {
+    -fx-background-color: #292B30;
+    -fx-font-family: 'SDK_JP_Web';
+}
+
+Label {
+    -fx-text-fill: #FBFEF9;
+}
+
+.eventbox {
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-border-style: hidden hidden hidden solid;
+    -fx-border-width: 5;
+    -fx-border-color: #6151A8;
+    -fx-min-height: 100px;
+}
+
