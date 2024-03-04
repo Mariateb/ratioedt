@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class EDTParser {
 
-    String[] keywords = {"BEGIN", "CATEGORIES", "DTSTAMP", "DTEND", "SUMMARY;LANGUAGE=fr", "DESCRIPTION;LANGUAGE=fr", "X-ALT-DESC;FMTTYPE=text/html", "END", "LOCATION", "LAST-MODIFIED", "DTSTART", "UID"};
+    String[] keywords = {"BEGIN", "CATEGORIES", "DTSTAMP", "DTSTART;VALUE=DATE", "DTEND", "SUMMARY;LANGUAGE=fr", "DESCRIPTION;LANGUAGE=fr", "X-ALT-DESC;FMTTYPE=text/html", "END", "LOCATION", "LAST-MODIFIED", "DTSTART", "UID"};
 
     private String getFileFromURL(String source) throws IOException {
         URL url = new URL(source);
@@ -58,11 +58,19 @@ public class EDTParser {
                 continue;
             }
             if(Objects.equals(lineInput[0], "DTSTART")) {
-                event.setDTStart(lineInput[1]);
+                String startDate = lineInput[1].split("T")[0];
+                String startTime = lineInput[1].split("T")[1].replace("Z", "");
+                assert event != null;
+                event.setDate(Integer.parseInt(startDate));
+                event.setStartHour(Integer.parseInt(startTime));
                 continue;
             }
             if(Objects.equals(lineInput[0], "DTEND")) {
-                event.setDTEnd(lineInput[1]);
+                System.out.println(line);
+                String endTime = lineInput[1].split("T")[1].replace("Z", "");
+                assert event != null;
+                int duration = Integer.parseInt(endTime) - event.getStartHour();
+                event.setDuration(duration);
                 continue;
             }
 
