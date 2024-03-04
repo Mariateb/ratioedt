@@ -1,5 +1,6 @@
 VBox {
     -fx-background-color: #292B30;
+    -fx-font-family: 'SDK_JP_Web';
 }
 
 Label {
